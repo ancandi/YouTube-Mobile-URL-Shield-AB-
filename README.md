@@ -6,12 +6,12 @@ URL Shield offers a different path to achieving uninteruppted mobile youtube bro
 <br>
 
 ## Get it from the Chrome Web Store (.js):
-[https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB./blob/main/url-shield-ab%2B.js](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB./blob/main/url-shield-ab%2B.js)
+[Install – .JS](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB/raw/refs/heads/main/url-shield-ab+.user.js)
 
 <br>
 
 ## 🦊 Get it for Firefox (.js):
-[https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB./blob/main/url-shield-ab%2B.js](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB./blob/main/url-shield-ab%2B.js)
+[Install – .JS](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB/raw/refs/heads/main/url-shield-ab+.user.js)
 
 <br>
 
