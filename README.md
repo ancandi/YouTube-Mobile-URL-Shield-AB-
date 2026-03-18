@@ -35,7 +35,7 @@ URL Shield offers a different path to achieving uninteruppted mobile youtube bro
 - Uses a unique method to bypass monetization interruptions via the "front end"
 
 ## ⚙️ Other Utility Extensions
-- You might want to try out other userscript utilities available on both Mobile/Desktop such as: [[Evade - Link Bypasser]](skipped.lol)
+- You might want to try out other userscript utilities available on both Mobile/Desktop such as: [Evade - Link Bypasser](https://skipped.lol/)
 
 <br>
 
