@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name YouTube Mobile URL Shield AB+
-// @namespace https://viayoo.com/
+// @namespace http://tampermonkey.com/
 // @version 3.0
 // @description Total Data Blockade + Mutation-Level Image Killing
-// @author You
+// @author ancandi
 // @run-at document-start
 // @match https://*.youtube.com/*
 // @grant none
