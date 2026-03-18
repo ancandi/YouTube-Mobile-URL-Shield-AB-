@@ -1,17 +1,17 @@
 # Youtube Mobile URL Shield AB+ - Simple reload mechanic and unmute bottom bar accessibility for autoplay.
-**This is URL Shield AB+, a beta, data-lite, mobile front-end YouTube solution designed to prioritize speed and reliability over complex filtering.**
+**This is YT URL Shield AB+, a beta, data-lite, mobile front-end YouTube solution designed to prioritize speed and reliability over complex filtering.**
 
 URL Shield offers a different path to achieving uninteruppted mobile youtube browsing. Instead of fighting YouTube's encryption, it monitors the video state in real-time and reloads the page without video player interruptions seamlessly. This will continue to work even when other third-party extensions aren't working for this purpose.
 
 <br>
 
 ## Get it from the Chrome Web Store (.js):
-[Install – .JS](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB/raw/refs/heads/main/url-shield-ab+.user.js)
+[Youtube Mobile URL Shield AB+ – JavaScript](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB/raw/refs/heads/main/url-shield-ab+.user.js)
 
 <br>
 
 ## 🦊 Get it for Firefox (.js):
-[Install – .JS](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB/raw/refs/heads/main/url-shield-ab+.user.js)
+[Youtube Mobile URL Shield AB+ – JavaScript](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB/raw/refs/heads/main/url-shield-ab+.user.js)
 
 <br>
 
