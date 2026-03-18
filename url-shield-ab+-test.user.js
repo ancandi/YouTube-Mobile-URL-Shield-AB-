@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name YouTube Mobile URL Shield AB+
 // @namespace http://tampermonkey.com/
-// @version 3.1
-// @description Total Data Blockade + Persistent Unmute Shield
+// @version 3.2
+// @description Persistent Unmute + Stutter Fix
 // @author ancandi
 // @run-at document-start
 // @match https://*.youtube.com/*
@@ -47,7 +47,7 @@
         observer.observe(document.documentElement, { childList: true, subtree: true });
     }
 
-    // --- 3. THE REINFORCED SHIELD (Persistent Logic) ---
+    // --- 3. THE REINFORCED SHIELD ---
     const shield = document.createElement('div');
     shield.id = 'reloader-unmute-shield';
     
@@ -68,26 +68,32 @@
     visualBar.innerText = 'TAP TO UNMUTE';
     shield.appendChild(visualBar);
 
+    let currentVideoTarget = null;
+
     const handleInteraction = (e) => {
         if (e) {
             e.preventDefault();
             e.stopPropagation();
-            e.stopImmediatePropagation();
         }
 
         const video = document.querySelector('video');
         if (video) {
             video.muted = false;
             video.volume = 1.0;
-            video.play().catch(() => { video.play(); });
+            // Capture the current video to prevent shield from reappearing for this specific one
+            currentVideoTarget = video.src; 
+            video.play().catch(() => { 
+                // Fallback for aggressive mobile browsers
+                video.muted = false;
+                video.play();
+            });
         }
         
-        // Hide immediately on tap, but do not set a "permanent" cleared flag
         shield.style.display = 'none';
         return false;
     };
 
-    ['touchstart', 'touchend', 'click', 'mousedown'].forEach(evt => {
+    ['touchstart', 'click'].forEach(evt => {
         shield.addEventListener(evt, handleInteraction, { capture: true, passive: false });
     });
 
@@ -110,35 +116,30 @@
         }
     };
 
-    // --- 5. MAINTENANCE LOOP (Dynamic & Persistent) ---
+    // --- 5. MAINTENANCE LOOP ---
     setInterval(() => {
         const isWatch = window.location.pathname.startsWith('/watch');
         const video = document.querySelector('video');
 
-        // Layout Logic
+        // Layout Logic: Keep /watch full screen, everything else bottom-bar
         if (isWatch) {
             shield.style.top = '0'; 
             shield.style.height = '100vh';
             strictMonKill();
         } else {
-            // On homepage/shorts-feed, keep hitbox limited to the white bar area
             shield.style.top = 'auto'; 
             shield.style.bottom = '0'; 
             shield.style.height = '100px'; 
             sessionStorage.removeItem('yt-ad-reload-active');
         }
 
-        // UI Restoration logic for reloads
-        if (!document.querySelector('.ad-showing') && sessionStorage.getItem('yt-ad-reload-active') === 'true') {
-            sessionStorage.removeItem('yt-ad-reload-active');
-            const saver = document.getElementById('yt-hard-blocker');
-            if (saver) saver.remove();
+        // Reset the tracker if the video source changes (scrolling to new Short/Video)
+        if (video && currentVideoTarget !== video.src) {
+            currentVideoTarget = null;
         }
 
-        // PERSISTENCE LOGIC: 
-        // If a video exists and it is muted (standard for mobile autoplay/shorts), show shield.
-        // If no video or unmuted, hide shield.
-        if (video && video.muted && !document.querySelector('.ad-showing')) {
+        // Persistence Logic
+        if (video && video.muted && !document.querySelector('.ad-showing') && !currentVideoTarget) {
             if (!document.getElementById('reloader-unmute-shield')) {
                 document.body.appendChild(shield);
             }
@@ -147,10 +148,18 @@
             shield.style.display = 'none';
         }
 
-    }, 100); // Efficient polling
+        // UI Cleanup
+        if (!document.querySelector('.ad-showing') && sessionStorage.getItem('yt-ad-reload-active') === 'true') {
+            sessionStorage.removeItem('yt-ad-reload-active');
+            const saver = document.getElementById('yt-hard-blocker');
+            if (saver) saver.remove();
+        }
+
+    }, 150); // Slightly slower polling to prevent browser event-loop stutter
 
     window.addEventListener('popstate', () => {
         reloadTriggered = false;
+        currentVideoTarget = null; // Clear on navigation
     });
 
 })();
