@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name YouTube Mobile URL Shield AB+
 // @namespace http://tampermonkey.com/
-// @version 5.2
-// @description Isolated /watch Auto-Unmute + Persistent Home Bar + Data Predator
+// @version 5.3
+// @description Seek-Lock + Watch Auto-Sync + Data Predator
 // @author ancandi
 // @run-at document-start
 // @match https://*.youtube.com/*
@@ -16,8 +16,9 @@
     let activeSrc = ""; 
     let forceResumeTimer = null;
     let playStartTime = 0;
+    let savedTime = 0; // The Seek-Lock variable
 
-    // --- 1. DATA PREDATOR (Pre-emptive Blockade) ---
+    // --- 1. DATA PREDATOR ---
     const predator = new MutationObserver((mutations) => {
         for (let i = 0; i < mutations.length; i++) {
             const nodes = mutations[i].addedNodes;
@@ -52,15 +53,24 @@
     visualBar.innerText = 'TAP TO UNMUTE';
     shield.appendChild(visualBar);
 
-    // --- 3. THE RESUME ENGINE (10ms Hammer) ---
+    // --- 3. THE RESUME ENGINE (With Seek-Lock) ---
     const startForceResume = (videos) => {
         if (forceResumeTimer) clearInterval(forceResumeTimer);
         let attempts = 0;
         forceResumeTimer = setInterval(() => {
             videos.forEach(v => {
-                if (v.paused && v.readyState >= 1) v.play().catch(() => {});
+                // SEAMLESS FIX: If YT reset the video to 0, force it back to savedTime
+                if (v.currentTime < savedTime && savedTime > 0.1) {
+                    v.currentTime = savedTime;
+                }
+                if (v.paused && v.readyState >= 1) {
+                    v.play().catch(() => {});
+                }
             });
-            if (++attempts > 60) clearInterval(forceResumeTimer);
+            if (++attempts > 60) {
+                clearInterval(forceResumeTimer);
+                savedTime = 0; // Reset after burst
+            }
         }, 10); 
     };
 
@@ -72,7 +82,7 @@
 
     ['touchstart', 'click'].forEach(evt => shield.addEventListener(evt, handleInteraction, { capture: true, passive: false }));
 
-    // --- 4. MAINTENANCE & ISOLATED AUTO-LOGIC ---
+    // --- 4. MAINTENANCE LOOP ---
     setInterval(() => {
         const isWatch = window.location.pathname.startsWith('/watch');
         const videos = document.querySelectorAll('video');
@@ -80,26 +90,25 @@
 
         if (isWatch) {
             shield.style.top = '0'; shield.style.height = '100vh';
-            
-            // --- ISOLATED AUTO-STRIKE ONLY ON WATCH ---
             if (videos.length > 0 && videos[0].muted && !userWantsUnmute && !adShowing) {
                 userWantsUnmute = true; 
             }
-
             if (adShowing && videos[0]?.duration > 0) {
                 sessionStorage.setItem('yt-ad-reload-active', 'true');
                 window.location.replace(window.location.href);
             }
         } else {
-            // Homepage: Manual Tap Required (Persistence Restore)
             shield.style.top = 'auto'; shield.style.bottom = '0'; shield.style.height = '100px';
         }
 
-        // UNMUTE & RESUME ENFORCER
+        // UNMUTE & SEEK-LOCK ENFORCER
         if (userWantsUnmute) {
             let success = false;
             videos.forEach(v => {
                 if (v.src && v.readyState >= 1) {
+                    // Capture current position before YT can reset it
+                    if (v.currentTime > 0.1) savedTime = v.currentTime;
+                    
                     v.muted = false; v.volume = 1.0;
                     activeSrc = v.src;
                     if (!v.muted) success = true;
@@ -107,12 +116,12 @@
             });
             if (success) {
                 userWantsUnmute = false; shield.style.display = 'none';
-                startForceResume(videos); // Ensure it resumes immediately
+                startForceResume(videos);
                 playStartTime = Date.now();
             }
         }
 
-        // UI RECOVERY (Black Screen Fix)
+        // UI RECOVERY & SHIELD VISIBILITY
         if (videos[0] && !videos[0].paused && !videos[0].muted && !adShowing && playStartTime > 0) {
             if (Date.now() - playStartTime > 800) {
                 sessionStorage.removeItem('yt-ad-reload-active');
@@ -122,15 +131,10 @@
             }
         }
 
-        // VISIBILITY LOGIC
         let needsShield = false;
         videos.forEach(v => {
-            // On Watch, auto-logic usually kills this before you see it.
-            // On Home, this displays the bar for muted feed videos.
             if (v.muted && v.src !== activeSrc && !adShowing) needsShield = true;
-            if (v.src !== activeSrc && activeSrc !== "") { 
-                activeSrc = ""; userWantsUnmute = false; 
-            }
+            if (v.src !== activeSrc && activeSrc !== "") { activeSrc = ""; userWantsUnmute = false; }
         });
 
         if (needsShield || userWantsUnmute) {
