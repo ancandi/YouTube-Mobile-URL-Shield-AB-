@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name YouTube Mobile URL Shield AB+
 // @namespace http://tampermonkey.com/
-// @version 3.8
-// @description Split Logic: Native /watch Unmute + Custom Home Shield
+// @version 3.9
+// @description Fixed Fullscreen Tap + Split Logic Persistence
 // @author ancandi
 // @run-at document-start
 // @match https://*.youtube.com/*
@@ -47,7 +47,8 @@
     const shield = document.createElement('div');
     Object.assign(shield.style, {
         position: 'fixed', left: '0', width: '100vw', zIndex: '2147483647', 
-        display: 'none', cursor: 'pointer', touchAction: 'manipulation'
+        display: 'none', cursor: 'pointer', touchAction: 'manipulation',
+        backgroundColor: 'transparent'
     });
 
     const bar = document.createElement('div');
@@ -62,24 +63,28 @@
 
     let activeSrc = "";
 
-    const unmuteHome = (e) => {
-        // Only run custom unmute logic if NOT on /watch
-        if (window.location.pathname.startsWith('/watch')) return;
-
-        if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+    const handleUnmute = (e) => {
+        if (e) { 
+            e.preventDefault(); 
+            e.stopImmediatePropagation(); 
+        }
+        
         const videos = document.querySelectorAll('video');
         videos.forEach(v => {
             activeSrc = v.src;
             v.muted = false;
             v.volume = 1.0;
+            // Force play and then re-force after a micro-delay to stop YT's auto-pause
             v.play().catch(() => v.play());
+            setTimeout(() => { if (v.paused) v.play(); }, 30);
         });
+        
         shield.style.display = 'none';
         return false;
     };
 
-    shield.addEventListener('touchstart', unmuteHome, { capture: true, passive: false });
-    shield.addEventListener('click', unmuteHome, { capture: true });
+    shield.addEventListener('touchstart', handleUnmute, { capture: true, passive: false });
+    shield.addEventListener('click', handleUnmute, { capture: true });
 
     // 4. MONETIZATION KILL
     let trig = false;
@@ -100,20 +105,18 @@
         const videos = document.querySelectorAll('video');
         let mutedFound = false;
 
+        // Restore Original Split Logic
         if (isWatch) {
-            // /watch logic: Full screen but NO pointer events on the shield itself
-            // This lets the tap hit the YouTube player directly to unmute without pausing.
+            // Watch: Fullscreen tap area (to protect history), but bar is hidden
             shield.style.top = '0'; 
             shield.style.height = '100vh';
-            shield.style.pointerEvents = 'none'; 
-            bar.style.display = 'none'; // Hide bar on watch to use native UI
+            bar.style.display = 'none'; 
             monKill();
         } else {
-            // Homepage logic: Bottom bar is clickable, rest of screen is free
+            // Homepage: Bottom bar only, rest of screen is clickable
             shield.style.top = 'auto'; 
             shield.style.bottom = '0'; 
             shield.style.height = '100px';
-            shield.style.pointerEvents = 'auto';
             bar.style.display = 'flex';
             sessionStorage.removeItem('yt-ad-reload-active');
         }
@@ -122,6 +125,7 @@
             if (v.muted && v.src !== activeSrc && !document.querySelector('.ad-showing')) {
                 mutedFound = true;
             }
+            // Reset state if we scroll to a new video
             if (v.src !== activeSrc && activeSrc !== "") {
                 activeSrc = "";
             }
@@ -137,7 +141,7 @@
 
         if (mutedFound) {
             if (!shield.parentElement) document.body.appendChild(shield);
-            shield.style.display = 'flex';
+            shield.style.display = 'block'; // Use block so bar child shows up correctly
         } else {
             shield.style.display = 'none';
         }
