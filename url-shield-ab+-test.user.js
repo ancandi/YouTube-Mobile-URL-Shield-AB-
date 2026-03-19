@@ -30,10 +30,21 @@
         tb.style.border = `1px solid rgba(${isD?'255,255,255':'0,0,0'},0.1)`;
     };
 
-    const scrub = () => {
+    const precisionKill = () => {
         if (!location.pathname.startsWith('/shorts')) return;
-        if (d.querySelector('button[aria-label*="ad"], .ytm-reel-ad-header-renderer') || d.body.innerText.includes("This is a paid ad")) {
-            d.querySelectorAll('video').forEach(v => { if(v.src){ v.pause(); v.removeAttribute('src'); v.load(); }});
+
+        const hasAdUI = d.querySelector('button[aria-label*="ad"], .ytm-reel-ad-header-renderer, .ytm-ad-overlay-endpoint');
+        const hasPaidText = d.body.innerText.includes("This is a paid ad") || d.body.innerText.includes("Sponsored");
+
+        if (hasAdUI || hasPaidText) {
+            d.querySelectorAll('video').forEach(v => {
+                if (v.src && v.src !== "") {
+                    v.pause();
+                    v.removeAttribute('src');
+                    v.load();
+                }
+            });
+            
             const next = d.querySelector('button[aria-label="Next video"]');
             if (next) next.click();
             else {
@@ -43,7 +54,7 @@
         }
     };
 
-    new MutationObserver(scrub).observe(d.documentElement, { childList: true, subtree: true });
+    new MutationObserver(precisionKill).observe(d.documentElement, { childList: true, subtree: true });
 
     hi.ontouchstart = e => { e.preventDefault(); l = hS = true; };
     tb.ontouchstart = e => { e.preventDefault(); l = hS = false; };
