@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name YouTube Mobile URL Shield AB+ CSS-Emulation
+// @name YouTube Mobile URL Shield AB+
 // @namespace http://tampermonkey.com/
 // @version 3.0.3
 // @description UI Detection Dark/Light Detection
