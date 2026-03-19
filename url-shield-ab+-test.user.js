@@ -7,7 +7,7 @@
 
 (function() {
     'use strict';
-    let u = false, l = false, gC = 0; 
+    let u = false, l = localStorage.getItem('yts-h') === '1', gC = 0; 
     const d = document, w = window, sh = d.createElement('div'), br = d.createElement('div'), hi = d.createElement('div'), tb = d.createElement('div');
 
     const update = () => {
@@ -31,17 +31,17 @@
     Object.assign(sh.style, { position: 'fixed', inset: '0', zIndex: '2147483647', display: 'none' });
     Object.assign(br.style, { position: 'absolute', bottom: '0', width: '100%', height: '100px', fontWeight: '900', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', backdropFilter: 'blur(8px)', webkitBackdropFilter: 'blur(8px)' });
     Object.assign(hi.style, { position: 'fixed', bottom: '100px', left: '15px', width: '70px', height: '45px', textAlign: 'center', lineHeight: '45px', borderRadius: '12px 12px 0 0', zIndex: '2147483647', display: 'none', fontWeight: '900', fontSize: '14px' });
-    Object.assign(tb.style, { position: 'fixed', bottom: '40px', right: '20px', width: '70px', height: '45px', borderRadius: '12px', zIndex: '0', display: 'none', backdropFilter: 'blur(8px)', webkitBackdropFilter: 'blur(8px)' });
+    // Folder Tab Z-Index set to 1 to prevent overlay bugs
+    Object.assign(tb.style, { position: 'fixed', bottom: '40px', right: '20px', width: '70px', height: '45px', borderRadius: '12px', zIndex: '1', display: 'none', backdropFilter: 'blur(8px)', webkitBackdropFilter: 'blur(8px)' });
 
     sh.appendChild(br);
-    hi.ontouchstart = e => { e.preventDefault(); l = true; };
-    tb.ontouchstart = e => { e.preventDefault(); l = false; };
+    hi.ontouchstart = e => { e.preventDefault(); l = true; localStorage.setItem('yts-h', '1'); };
+    tb.ontouchstart = e => { e.preventDefault(); l = false; localStorage.setItem('yts-h', '0'); };
     sh.ontouchstart = () => { if(!l) u = true; };
 
     setInterval(() => {
         const path = location.pathname, isW = path.startsWith('/watch'), isS = path.startsWith('/results'), act = d.activeElement;
 
-        // SILENT GHOST FIX: If video exists but is dead (readyState 0) on a /watch page
         let vRef = d.querySelector('video');
         if (isW && vRef && vRef.readyState === 0) {
             if (++gC > 40) { w.history.replaceState(null, '', location.href); w.dispatchEvent(new PopStateEvent('popstate')); gC = 0; return; }
@@ -49,7 +49,9 @@
 
         sh.style.pointerEvents = isW ? 'auto' : 'none';
         br.style.pointerEvents = isW ? 'none' : 'auto';
-        if (!isS && l) l = false;
+        
+        if (!isS && !isW && l) l = false;
+
         if ((act && /INPUT|TEXTAREA/.test(act.tagName)) || d.querySelector('ytm-browse-sidebar-renderer[opened], .ytm-sidebar-open')) {
             sh.style.display = hi.style.display = tb.style.display = 'none'; return;
         }
