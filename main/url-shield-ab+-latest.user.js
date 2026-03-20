@@ -9,7 +9,6 @@
     'use strict';
     let l = false, g = 0, u = false, d = document, w = window;
     const el = (t, s) => Object.assign(d.createElement(t), { style: s }),
-          css = (e, s) => Object.assign(e.style, s),
           sh = el('div', 'position:fixed;inset:0;z-index:2147483647;display:none'),
           br = el('div', 'position:absolute;bottom:0;width:100%;height:120px;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:20px;backdrop-filter:blur(10px);webkit-backdrop-filter:blur(10px);pointer-events:auto'),
           hi = el('div', 'position:fixed;bottom:120px;left:15px;width:90px;height:45px;text-align:center;line-height:45px;border-radius:12px 12px 0 0;z-index:2147483647;display:none;font-weight:900;font-size:14px;pointer-events:auto'),
@@ -34,6 +33,12 @@
 
     (function loop() {
         const p = location.pathname, isW = p.startsWith('/watch'), isS = p.startsWith('/results'), act = d.activeElement;
+        
+        d.querySelectorAll('ytd-ad-slot-renderer, ytm-ad-slot-renderer, .ad-showing, .ad-interrupting').forEach(t => {
+            t.querySelectorAll('video, img, source').forEach(m => { m.src = ''; m.load?.(); m.remove(); });
+            t.innerHTML = ''; 
+        });
+
         if (isW && d.querySelector('.ad-showing')) return w.location.replace(w.location.href.split('&ts=')[0] + (w.location.href.includes('?') ? '&' : '?') + 'ts=' + Date.now());
 
         let v = d.querySelector('video'), isD = w.matchMedia('(prefers-color-scheme: dark)').matches || d.documentElement.hasAttribute('dark');
