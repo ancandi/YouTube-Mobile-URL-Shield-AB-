@@ -1,4 +1,4 @@
-# Youtube Mobile URL Shield AB+ - Simple reload mechanic and unmute bottom bar accessibility for autoplay.
+# YouTube Mobile URL Shield AB+ - Simple reload mechanic and unmute bottom bar accessibility for autoplay.
 **This is YT URL Shield AB+, A high-performance, data-efficient mobile YouTube browser script. Optimized for speed, reliability, and seamless autoplay restoration.**
 
 URL Shield offers a different path to achieving uninteruppted mobile YouTube browsing. Instead of fighting YouTube's encryption, it monitors the video state in real-time and reloads the page without video player interruptions seamlessly. This will continue to work even when other third-party extensions aren't working for this purpose.
