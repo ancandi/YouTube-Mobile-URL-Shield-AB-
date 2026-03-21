@@ -71,7 +71,7 @@ Prevents aggressive "Forced Dark Mode" on mobile browsers from breaking specific
     * [Standard Build](https://github.com/ancandi/Night-Mode-Disabler-Whitelist-M/raw/main/night-mode-disabler.user.js)
 * **>Install: Night Mode Disabler [Safari]**
     * [Safari Build (WebKit)](https://github.com/ancandi/Night-Mode-Disabler-Whitelist-M/raw/main/night-mode-disabler-safari.user.js)
-    * 
+      
 ---
 
 ### 🔍 Looking for more?
