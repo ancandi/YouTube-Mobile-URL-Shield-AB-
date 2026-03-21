@@ -41,8 +41,9 @@ URL Shield offers a different path to achieving uninteruppted mobile YouTube bro
 
 - Looking for more? Try out other userscript utilities: [Evade - Link Bypasser](https://skipped.lol/)
 
-#### This is the complete collection of high-performance, ultra-lean userscripts designed to reclaim control over mobile web experiences. ⬇⬇
- 
+#### This is the complete collection of high-performance, ultra-lean userscripts designed to reclaim control over mobile web experiences. ⬇
+> Otherwise, heck out the full source code and technical documentation at **[github.com/ancandi](https://github.com/ancandi)**.
+
 ---
 
 #### 🚀 Video Bitrate O/BA
@@ -57,8 +58,8 @@ Forces high-fidelity VP9/AV1 streams and bypasses mobile data throttling by hija
 ---
 
 ##### 🛡️ YouTube Mobile URL Shield AB+
-**Version 3.0.7** | *UI-Driven Interaction Bypass*
-Automates the "Tap to Unmute" process on mobile, nukes ad-slots, and prevents player stalls with a custom frosted-glass UI. Includes the v3.0.6-spec "Hide" button CSS.
+**Version 3.0.7** | *UI-Driven Interaction Off*
+Automates the "Tap to Unmute" process on mobile, nukes monetization-slots, and prevents player stalls with a custom frosted-glass UI.
 
 * **>Install: YouTube Mobile URL Shield AB+**
     * [Standard Build](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB/raw/refs/heads/main/main/url-shield-ab+-latest-beta.user.js)
@@ -68,8 +69,8 @@ Automates the "Tap to Unmute" process on mobile, nukes ad-slots, and prevents pl
 ---
 
 #### 🌙 Night Mode Disabler & Whitelist (M)
-**Version 1.0.2** | *Contrast & UI Control*
-Prevents aggressive "Forced Dark Mode" on mobile browsers from breaking specific site UI elements. Includes a high-speed whitelist engine to maintain original site aesthetics where dark mode fails.
+**Version 1.0.0** | *Contrast & UI Control*
+Prevents aggressive "Forced Dark Mode" on mobile browsers from breaking specific site UI elements. Includes whitelist settings to maintain original site aesthetics where dark mode fails.
 
 * **>Install: Night Mode Disabler**
     * [Standard Build](https://github.com/ancandi/Night-Mode-Disabler-Whitelist-M/raw/main/night-mode-disabler.user.js)
