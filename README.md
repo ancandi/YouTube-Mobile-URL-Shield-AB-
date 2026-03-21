@@ -36,9 +36,13 @@ URL Shield offers a different path to achieving uninteruppted mobile YouTube bro
 - Uses a unique method to bypass monetization interruptions
 
 ## ⚙️ Other Utility Extensions/Issues
-- Looking for more? Try out other userscript utilities: [Evade - Link Bypasser](https://skipped.lol/)
-A collection of high-performance, ultra-lean userscripts designed to reclaim control over mobile web experiences.
 
+<img width="200" height="500" alt="image" src="https://github.com/user-attachments/assets/ea1f8205-4a4a-49f3-9eae-7b6e3d35873f" />
+
+- Looking for more? Try out other userscript utilities: [Evade - Link Bypasser](https://skipped.lol/)
+
+#### This collection of high-performance, ultra-lean userscripts designed to reclaim control over mobile web experiences.
+ 
 ---
 
 #### 🚀 Video Bitrate O/BA
@@ -72,15 +76,6 @@ Prevents aggressive "Forced Dark Mode" on mobile browsers from breaking specific
 * **>Install: Night Mode Disabler [Safari]**
     * [Safari Build (WebKit)](https://github.com/ancandi/Night-Mode-Disabler-Whitelist-M/raw/main/night-mode-disabler-safari.user.js)
       
----
-
-### 🔍 Looking for more?
-Try out other userscript utilities: [Evade - Link Bypasser](https://skipped.lol/)
-Otherwise, heck out the full source code and technical documentation at **[github.com/ancandi](https://github.com/ancandi)**.
-`[Example: Available Consumer-Based Active Mobile Userscripts]`
-
-<img width="200" height="500" alt="image" src="https://github.com/user-attachments/assets/ea1f8205-4a4a-49f3-9eae-7b6e3d35873f" />
-
 ---
 
 <br>
