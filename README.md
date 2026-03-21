@@ -35,6 +35,12 @@ URL Shield offers a different path to achieving uninteruppted mobile YouTube bro
 - Fixes interruptions and delays
 - Uses a unique method to bypass monetization interruptions
 
+<br>
+
+> **⚠️ Known Issue(s):** **`Note on Audio Sync: On licensed content (Vevo/Music), you may experience a momentary audio burst during UI touch processes. This is a result of the browser’s security engine synchronizing with the script’s forced-unmute command.`**
+
+<br>
+
 ## ⚙️ Other Utility Extensions/Issues
 
 <img width="200" height="500" alt="image" src="https://github.com/user-attachments/assets/ea1f8205-4a4a-49f3-9eae-7b6e3d35873f" />
@@ -78,10 +84,6 @@ Prevents aggressive "Forced Dark Mode" on mobile browsers from breaking specific
     * [Safari Build (WebKit)](https://github.com/ancandi/Night-Mode-Disabler-Whitelist-M/raw/main/night-mode-disabler-safari.user.js)
       
 ---
-
-<br>
-
-> **⚠️ Known Issue(s):** **`Note on Audio Sync: On licensed content (Vevo/Music), you may experience a momentary audio burst during UI touch processes. This is a result of the browser’s security engine synchronizing with the script’s forced-unmute command.`**
 
 <br>
 
