@@ -41,7 +41,7 @@ URL Shield offers a different path to achieving uninteruppted mobile YouTube bro
 
 <br>
 
-## ⚙️ Other Utility Extensions/Issues
+## 🔍 Looking for more?
 
 <img width="200" height="500" alt="image" src="https://github.com/user-attachments/assets/ea1f8205-4a4a-49f3-9eae-7b6e3d35873f" />
 
