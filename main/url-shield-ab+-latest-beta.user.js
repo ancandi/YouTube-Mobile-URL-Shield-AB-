@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name YouTube Mobile URL Shield AB+ [Safari Elite]
+// @name YouTube Mobile URL Shield AB+
 // @version 3.0.7
 // @match https://*.youtube.com/*
 // @run-at document-start
