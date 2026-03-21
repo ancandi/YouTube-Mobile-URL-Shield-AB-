@@ -41,7 +41,7 @@ URL Shield offers a different path to achieving uninteruppted mobile YouTube bro
 
 - Looking for more? Try out other userscript utilities: [Evade - Link Bypasser](https://skipped.lol/)
 
-#### This collection of high-performance, ultra-lean userscripts designed to reclaim control over mobile web experiences.
+#### This is the complete collection of high-performance, ultra-lean userscripts designed to reclaim control over mobile web experiences. ⬇⬇
  
 ---
 
