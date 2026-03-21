@@ -41,14 +41,14 @@ A collection of high-performance, ultra-lean userscripts designed to reclaim con
 
 ---
 
-#### 🚀 YouTube Bitrate O/BA
+#### 🚀 Video Bitrate O/BA
 **Version 1.0.0** | *Adaptive Codec & Bitrate Overdrive*
 Forces high-fidelity VP9/AV1 streams and bypasses mobile data throttling by hijacking the MediaSource API and mapping bitrate to real-time resolution.
 
-* **>Install: YouTube Bitrate O/BA**
-    * [Standard Build (Blink)](https://github.com/ancandi/YouTube-Bitrate-Overdrive/raw/main/youtube-bitrate-oba.user.js)
-* **>Install: YouTube Bitrate O/BA [Safari]**
-    * [Safari Build (WebKit)](https://github.com/ancandi/YouTube-Bitrate-Overdrive/raw/main/youtube-bitrate-oba-safari.user.js)
+* **>Install: Video Bitrate O/BA**
+    * [Standard Build (Blink)](https://github.com/ancandi/YouTube-Bitrate-Overdrive/raw/main/video-bitrate-oba.user.js)
+* **>Install: Video Bitrate O/BA [Safari]**
+    * [Safari Build (WebKit)](https://github.com/ancandi/YouTube-Bitrate-Overdrive/raw/main/video-bitrate-oba-safari.user.js)
 
 ---
 
@@ -57,9 +57,9 @@ Forces high-fidelity VP9/AV1 streams and bypasses mobile data throttling by hija
 Automates the "Tap to Unmute" process on mobile, nukes ad-slots, and prevents player stalls with a custom frosted-glass UI. Includes the v3.0.6-spec "Hide" button CSS.
 
 * **>Install: YouTube Mobile URL Shield AB+**
-    * [Standard Build](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB-Plus/raw/main/youtube-shield-ab-plus.user.js)
+    * [Standard Build](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB/raw/refs/heads/main/main/url-shield-ab+-latest-beta.user.js)
 * **>Install: YouTube Mobile URL Shield AB+ [Safari]**
-    * [Safari Build (WebKit)](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB-Plus/raw/main/youtube-shield-ab-plus-safari.user.js)
+    * [Safari Build (WebKit)](https://github.com/ancandi/YouTube-Mobile-URL-Shield-AB/raw/refs/heads/main/main/url-shield-ab+-safari-beta.user.js)
 
 ---
 
@@ -81,6 +81,7 @@ Otherwise, heck out the full source code and technical documentation at **[githu
 
 <img width="200" height="500" alt="image" src="https://github.com/user-attachments/assets/ea1f8205-4a4a-49f3-9eae-7b6e3d35873f" />
 
+---
 
 <br>
 
