@@ -26,14 +26,14 @@
     hi.ontouchstart = e => { e.preventDefault(); e.stopPropagation(); l = 1 };
     th.ontouchstart = e => { e.preventDefault(); e.stopPropagation(); l = 0 };
     (function loop() {
-        const p = location.pathname, isW = p.startsWith('/watch'), isS = p.startsWith('/results'), 
+        const p = location.pathname, isW = p.startsWith('/watch'), isS = p.startsWith('/results'), isH = p.startsWith('/shorts/'),
               isFS = d.fullscreenElement || d.webkitIsFullScreen || d.querySelector('.ytm-sidebar-open'), act = d.activeElement;
         (p != cur) && (!isS && (l = 0), cur = p); 
         d.querySelectorAll('ytd-ad-slot-renderer, ytm-ad-slot-renderer, .ad-showing, .ad-interrupting').forEach(t => t.remove());
         if (isW && d.querySelector('.ad-showing')) return location.replace(location.href.split('&ts=')[0] + (location.href.includes('?') ? '&' : '?') + 'ts=' + Date.now());
         let v = d.querySelector('video'), dk = w.matchMedia('(prefers-color-scheme: dark)').matches || d.documentElement.hasAttribute('dark');
         (isW && v?.readyState == 0 && ++g > 60) ? (w.dispatchEvent(new PopStateEvent('popstate')), g = 0) : (!isW && (g = 0));
-        if (isFS || (act && /INPUT|TEXTAREA/.test(act.tagName))) {
+        if (isFS || isH || (act && /INPUT|TEXTAREA/.test(act.tagName))) {
             sh.style.display = hi.style.display = tb.style.display = th.style.display = 'none';
             sh.style.pointerEvents = 'none';
         } else {
@@ -44,7 +44,7 @@
             sh.style.pointerEvents = isW ? 'auto' : 'none';
             if (l && isS) {
                 sh.style.display = hi.style.display = 'none'; 
-                !tb.parentNode && d.body.append(sh, tb, th);
+                if (!tb.parentNode) d.body.append(sh, tb, th);
                 tb.style.display = th.style.display = 'block';
             } else {
                 tb.style.display = th.style.display = 'none';
