@@ -84,7 +84,7 @@ If you have ideas for better data blockade, or want UI improvements like customi
 * **YouTube Shield (Zero UI)** — Invisible automation engine (v4.1.0).
 
 #### 🔗 External Resources
-* **Evade** — via `skipped.lol`
+* ⚡ **Evade** — via **[Evade - Link Bypasser](https://skipped.lol/)**
 * **AdGuard Extra** — Advanced anti-adblock bypass.
 * **AdsBypasser** — Countdown and redirect skip logic.
 * **FMHY Base64 Auto Decoder** — Automatic string decoding for piracy/sharing.
@@ -93,9 +93,7 @@ If you have ideas for better data blockade, or want UI improvements like customi
 
 #### ⚠️ Maintenance & Status
 * **Login reminder popup remover** — `[DEVELOPMENT CEASED]`
-
-- Try this public userscript utility: **[Evade - Link Bypasser](https://skipped.lol/)**
-
+---
 ## AND1 UserScripts — This is the complete collection of high-performance, streamlined userscripts designed to reclaim control over mobile web experiences. ⬇
 > Otherwise, check out the full source code and technical documentation at **[github.com/ancandi](https://github.com/ancandi)**.
 
