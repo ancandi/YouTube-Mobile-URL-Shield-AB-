@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name YouTube Mobile URL Shield AB+ (Safari)
 // @namespace http://tampermonkey.com/
-// @version 3.0.9-S
+// @version 3.1.0-S
 // @match https://*.youtube.com/*
 // @match https://*.youtube-nocookie.com/*
-// @match https://*.google.com.*/*
+// @match https://*.google.com/*
 // @run-at document-start
 // ==/UserScript==
 (function(d, w) {
@@ -37,10 +37,16 @@
               isFS = d.fullscreenElement || d.webkitIsFullScreen || d.querySelector('.ytm-sidebar-open'), act = d.activeElement;
         (p != cur) && (!isS && (l = 0), cur = p, st = 0); 
         d.querySelectorAll('ytd-ad-slot-renderer, ytm-ad-slot-renderer, .ad-showing, .ad-interrupting').forEach(t => t.remove());
-        if (isYT && isW && d.querySelector('.ad-showing')) return location.replace(location.href.split('&ts=')[0] + (location.href.includes('?') ? '&' : '?') + 'ts=' + Date.now());
+        const ad = d.querySelector('.ad-showing, .ad-interrupting, .ytp-ad-player-overlay');
+        if (ad) {
+            if (isYT && isW) return location.replace(location.href.split('&ts=')[0] + (location.href.includes('?') ? '&' : '?') + 'ts=' + Date.now());
+            const gv = d.querySelector('video'); if (gv) { gv.src = gv.src; gv.load(); }
+        }
         let v = d.querySelector('video'), dk = w.matchMedia('(prefers-color-scheme: dark)').matches || d.documentElement.hasAttribute('dark');
         if (v) {
-            (v.readyState == 0 || v.networkState == 3) ? (++g > 75 && isYT && (w.dispatchEvent(new PopStateEvent('popstate')), g = 0)) : (g = 0);
+            if (v.readyState == 0 || v.networkState == 3) {
+                if (++g > 75) { if (isYT) { w.dispatchEvent(new PopStateEvent('popstate')); } else { v.src = v.src; v.load(); } g = 0; }
+            } else { g = 0; }
             (v.paused && !v.ended && v.readyState > 2 && !isFS) ? (++st > 110 && (v.play().catch(()=>{}), v.currentTime += 0.1, st = 0)) : (st = 0);
         }
         if (isFS || (act && /INPUT|TEXTAREA/.test(act.tagName))) {
